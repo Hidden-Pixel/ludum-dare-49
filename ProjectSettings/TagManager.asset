@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -14,10 +15,10 @@ TagManager:
   - UI
   - 
   - 
-  - Ground
+  - Background
   - Traversal Objects
   - Player
-  - Background
+  - Foreground
   - 
   - 
   - 
