@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    [SerializeField] float moveSpeed = 1.5f;
+    [SerializeField] float moveSpeed = 0.5f;
     [SerializeField] GameObject player;
 
     Rigidbody2D myRigidBody;
@@ -25,7 +25,7 @@ public class EnemyMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (isDetectingPlayer == true && lastDetectedPlayerPos != null)
         {

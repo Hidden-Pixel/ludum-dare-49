@@ -14,13 +14,13 @@ TagManager:
   - Water
   - UI
   - 
-  - 
+  - Actor
   - Background
   - Traversal Objects
   - Player
   - Foreground
-  - 
-  - 
+  - Blocking
+  - Floor
   - 
   - 
   - 
@@ -57,4 +57,7 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 394572951
+    locked: 0
+  - name: Collsion
+    uniqueID: 3868653389
     locked: 0
