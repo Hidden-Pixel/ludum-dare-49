@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Sprites & Tiles/ld-tile-set/characters/basic.png.meta
 guid: 901f30b11af39b34a87686f247c0c796
+=======
+guid: f9b3e7395f180d64f8699715697a5464
+>>>>>>> main:Assets/Sprites & Tiles/ld-tile-set/Dungeon-tile-set.png.meta
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -75,6 +79,7 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+<<<<<<< HEAD:Assets/Sprites & Tiles/ld-tile-set/characters/basic.png.meta
   - serializedVersion: 3
     buildTarget: Standalone
     maxTextureSize: 2048
@@ -99,6 +104,8 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+=======
+>>>>>>> main:Assets/Sprites & Tiles/ld-tile-set/Dungeon-tile-set.png.meta
   spriteSheet:
     serializedVersion: 2
     sprites: []
