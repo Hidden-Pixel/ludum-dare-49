@@ -139,8 +139,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7e220a3710fb994489642861141bf0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  health: 500
   moveSpeed: 5
   player: {fileID: 0}
+  movement: {x: 0, y: 0, z: 0}
 --- !u!58 &339264075290451520
 CircleCollider2D:
   m_ObjectHideFlags: 0

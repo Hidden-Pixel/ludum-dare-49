@@ -5,18 +5,22 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] int damage = 100;
-    [SerializeField] float velocity = 1.0f;
+    [SerializeField] float speed = 1.0f;
     public Rigidbody2D rig_body;
 
     public int GetDamage() { return damage; }
 
-    public float GetVelocity() { return velocity; }
+    public float GetVelocity() { return speed; }
 
     private void Start ()
     {
         LayerMask.NameToLayer("Actor");
         rig_body = GetComponent<Rigidbody2D>();
-        rig_body.velocity = new Vector2(transform.localScale.x * velocity, 0);
+    }
+
+    public void SetDirection()
+    {
+        rig_body.velocity = transform.right * speed;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -28,16 +32,6 @@ public class Projectile : MonoBehaviour
         {
             Hit();
         }
-    }
-
-    private void Update()
-    {
-
-    }
-
-    private void FixedUpdate()
-    {
-        
     }
 
     public void Hit()

@@ -13,18 +13,19 @@ public class Player : MonoBehaviour
     public Vector3 move_delta;
     public RaycastHit2D hit;
     Animator myAnimator;
+    public bool facing_right;
 
     private void Start()
     {
         myAnimator = GetComponent<Animator>();
         collider_2d = GetComponent<BoxCollider2D>();
         rig_body = GetComponent<Rigidbody2D>();
+        facing_right = true;
     }
 
     private void Update()
     {
         move_delta = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0);
-        Fire();
     }
 
     void FixedUpdate()
@@ -35,30 +36,19 @@ public class Player : MonoBehaviour
     private void Move()
     {
         rig_body.MovePosition(transform.position + (move_delta * speed * Time.deltaTime));
-        if (move_delta.x > 0)
+        if (move_delta.x > 0 && !facing_right)
         {
-            transform.localScale = Vector3.one;
+            Flip();
         }
-        else if (move_delta.x < 0)
+        else if (move_delta.x < 0 && facing_right)
         {
-            transform.localScale = new Vector3(-1, 1, 1);
+            Flip();
         }
     }
 
-    private void Fire()
+    private void Flip()
     {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Vector3 pos = transform.position;
-            Quaternion rot = Quaternion.AngleAxis(transform.localScale.x * -90.0f, Vector3.forward);
-            Instantiate(projectilePrefab, pos, rot);
-            /*
-            var velocity = projectile.GetComponent<Projectile>().GetVelocity();
-            // Set the orientation of the arrow based on user face
-            var x = transform.localScale.x;
-            projectile.transform.rotation = ;
-            projectile.GetComponent<Rigidbody2D>().velocity = new Vector2(x * velocity, 0);
-            */
-        }
+        transform.Rotate(0.0f, 180.0f, 0.0f);
+        facing_right = !facing_right;
     }
 }
