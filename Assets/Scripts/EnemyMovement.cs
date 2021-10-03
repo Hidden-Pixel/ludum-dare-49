@@ -11,6 +11,7 @@ public class EnemyMovement : MonoBehaviour
     Animator myAnimator;
     CircleCollider2D detectionRadius;
     BoxCollider2D playerCollider;
+    Trigger2DProxy hitCollider;
 
     bool isDetectingPlayer = false;
     Transform lastDetectedPlayerPos;
@@ -22,6 +23,11 @@ public class EnemyMovement : MonoBehaviour
         myRigidBody = GetComponent<Rigidbody2D>();
         detectionRadius = GetComponent<CircleCollider2D>();
         playerCollider = player.GetComponent<BoxCollider2D>();
+
+        // Subscribe to collision events. (Probably not the best way, but it works...)
+        // https://answers.unity.com/questions/188775/having-more-than-one-collider-in-a-gameobject.html
+        hitCollider = transform.Find("HitCollider").GetComponent<Trigger2DProxy>();
+        hitCollider.OnCollisionTrigger2D_Action += HitCollider_OnTriggerEnter2D;
     }
 
     // Update is called once per frame
@@ -33,6 +39,18 @@ public class EnemyMovement : MonoBehaviour
 
             // Move enemy towards player
             myRigidBody.MovePosition(player.transform.position * moveSpeed * Time.fixedDeltaTime);
+        }
+    }
+
+    private void HitCollider_OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Projectile")
+        {
+            Debug.Log("Hit");
+            Projectile projectile = collision.gameObject.GetComponent<Projectile>();
+
+            // TODO: Do damage to the enemy.
+            projectile.Hit();
         }
     }
 
