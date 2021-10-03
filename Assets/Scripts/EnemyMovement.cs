@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    [SerializeField] int health = 500;
-    [SerializeField] float moveSpeed = 3.0f;
+    public int health = 500;
+    public float moveSpeed = 0.25f;
     [SerializeField] GameObject player;
 
     public Vector3 movement;
@@ -43,17 +43,15 @@ public class EnemyMovement : MonoBehaviour
 
     void Update() 
     {
-        movement = player.transform.position;
+
     }
 
     void FixedUpdate()
     {
         if (isDetectingPlayer == true && lastDetectedPlayerPos != null)
         {
-            movement = transform.position - (movement * moveSpeed * Time.deltaTime);
-            Debug.Log("Player is in radius - movement: " + movement);
-            // Move enemy towards player
-            myRigidBody.MovePosition(movement);
+            Vector3 dir = (player.transform.position - transform.position).normalized;
+            myRigidBody.MovePosition(transform.position + dir * moveSpeed * Time.deltaTime);
         }
     }
 

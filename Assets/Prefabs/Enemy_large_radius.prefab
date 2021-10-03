@@ -187,9 +187,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 500
-  moveSpeed: 5
-  player: {fileID: 0}
-  movement: {x: 0, y: 0}
+  moveSpeed: 0.25
+  player: {fileID: 1069120884399680587, guid: 177b30e223881834388ef005cd4a245b, type: 3}
+  movement: {x: 0, y: 0, z: 0}
 --- !u!58 &7711029941527772089
 CircleCollider2D:
   m_ObjectHideFlags: 0
