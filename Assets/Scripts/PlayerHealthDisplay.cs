@@ -7,8 +7,12 @@ public class PlayerHealthDisplay : MonoBehaviour
 {
     // configurable fields
     [Header("Health Information")]
-    [SerializeField] int playerHealth = 100;
-    [SerializeField] int playerHealthMax = 100;
+
+    [Range(0, 100)]
+    public int playerHealth = 100;
+
+    [Min(1)]
+    public int playerHealthMax = 100;
 
     [Header("Heart Slots")]
     [SerializeField] Image firstHeartSlot;
