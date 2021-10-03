@@ -10,4 +10,9 @@ public class Projectile : MonoBehaviour
     public int GetDamage() { return damage; }
 
     public float GetVelocity() { return velocity; }
+
+    public void Hit()
+    {
+        Destroy(gameObject);
+    }
 }

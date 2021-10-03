@@ -10,9 +10,11 @@ public class Player : MonoBehaviour
     public BoxCollider2D collider_2d;
     public Vector3 move_delta;
     public RaycastHit2D hit;
+    Animator myAnimator;
 
     private void Start()
     {
+        myAnimator = GetComponent<Animator>();
         collider_2d = GetComponent<BoxCollider2D>();
     }
 
@@ -69,8 +71,6 @@ public class Player : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            Debug.Log("Fire!");
-
             // Get the direction that the player is pointed in.
             //Debug.Log("LocalScale:" + transform.localScale);
 
