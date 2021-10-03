@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
+    [SerializeField] int health = 500;
     [SerializeField] float moveSpeed = 0.5f;
     [SerializeField] GameObject player;
 
@@ -42,15 +43,19 @@ public class EnemyMovement : MonoBehaviour
         }
     }
 
+    // Handle collisions related to projectiles.
     private void HitCollider_OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Projectile")
         {
-            Debug.Log("Hit");
             Projectile projectile = collision.gameObject.GetComponent<Projectile>();
-
-            // TODO: Do damage to the enemy.
             projectile.Hit();
+
+            health -= projectile.GetDamage();
+            if (health <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 

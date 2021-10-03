@@ -71,21 +71,14 @@ public class Player : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            // Get the direction that the player is pointed in.
-            //Debug.Log("LocalScale:" + transform.localScale);
-
-
-            // TODO: Figure out how to point the arrow.
             GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity) as GameObject;
 
             var velocity = projectile.GetComponent<Projectile>().GetVelocity();
 
+            // Set the orientation of the arrow based on user face
             var x = transform.localScale.x;
-            var y = 0;
+            projectile.transform.rotation = Quaternion.AngleAxis(x * -90, Vector3.forward);
 
-            var angle = Mathf.Atan2(y, x) * Mathf.Rad2Deg;
-
-            projectile.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
             projectile.GetComponent<Rigidbody2D>().velocity = new Vector2(x * velocity, 0);
         }
     }
