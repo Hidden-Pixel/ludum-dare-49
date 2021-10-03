@@ -16,6 +16,7 @@ public class EnemyMovement : MonoBehaviour
     Trigger2DProxy hitCollider;
 
     bool isDetectingPlayer = false;
+    bool hit_wall = false;
     Transform lastDetectedPlayerPos;
 
     // Start is called before the first frame update
@@ -48,10 +49,13 @@ public class EnemyMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (isDetectingPlayer == true && lastDetectedPlayerPos != null)
+        if (hit_wall == false)
         {
-            Vector3 dir = (player.transform.position - transform.position).normalized;
-            myRigidBody.MovePosition(transform.position + dir * moveSpeed * Time.deltaTime);
+            if (isDetectingPlayer == true && lastDetectedPlayerPos != null)
+            {
+                Vector3 dir = (player.transform.position - transform.position).normalized;
+                myRigidBody.MovePosition(transform.position + dir * moveSpeed * Time.deltaTime);
+            }
         }
     }
 
@@ -82,6 +86,7 @@ public class EnemyMovement : MonoBehaviour
             // Start run animation
             myAnimator.SetBool("Running", true);
         }
+        CheckBlocking(collision);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -95,6 +100,7 @@ public class EnemyMovement : MonoBehaviour
             // transition back to idle state
             myAnimator.SetBool("Running", false);
         }
+        CheckBlocking(collision);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -103,6 +109,21 @@ public class EnemyMovement : MonoBehaviour
         if (collision.gameObject.tag == "Player" && isDetectingPlayer == true)
         {
             lastDetectedPlayerPos = collision.transform;
+        }
+        CheckBlocking(collision);
+    }
+
+    private void CheckBlocking(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Blocking"))
+        {
+            Debug.Log("hit the wall");
+            hit_wall = true;
+        }
+        else 
+        {
+            Debug.Log("not hitting the wall - type: " + collision.GetComponent<Collider>().GetType());
+            hit_wall = false;
         }
     }
 }
