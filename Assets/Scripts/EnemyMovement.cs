@@ -5,9 +5,10 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] int health = 500;
-    [SerializeField] float moveSpeed = 0.5f;
+    [SerializeField] float moveSpeed = 3.0f;
     [SerializeField] GameObject player;
 
+    public Vector3 movement;
     Rigidbody2D myRigidBody;
     Animator myAnimator;
     CircleCollider2D detectionRadius;
@@ -20,6 +21,15 @@ public class EnemyMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.Find("Player");
+        if (player == null)
+        {
+            Debug.Log("could not find player game object");
+        }
+        else
+        {
+            Debug.Log("found player game object: " + player);
+        }
         myAnimator = GetComponent<Animator>();
         myRigidBody = GetComponent<Rigidbody2D>();
         detectionRadius = GetComponent<CircleCollider2D>();
@@ -27,19 +37,23 @@ public class EnemyMovement : MonoBehaviour
 
         // Subscribe to collision events. (Probably not the best way, but it works...)
         // https://answers.unity.com/questions/188775/having-more-than-one-collider-in-a-gameobject.html
-        hitCollider = transform.Find("HitCollider").GetComponent<Trigger2DProxy>();
-        hitCollider.OnCollisionTrigger2D_Action += HitCollider_OnTriggerEnter2D;
+        //hitCollider = transform.Find("HitCollider").GetComponent<Trigger2DProxy>();
+        //hitCollider.OnCollisionTrigger2D_Action += HitCollider_OnTriggerEnter2D;
     }
 
-    // Update is called once per frame
+    void Update() 
+    {
+        movement = player.transform.position;
+    }
+
     void FixedUpdate()
     {
         if (isDetectingPlayer == true && lastDetectedPlayerPos != null)
         {
-            Debug.Log("Player is in radius");
-
+            movement = transform.position - (movement * moveSpeed * Time.deltaTime);
+            Debug.Log("Player is in radius - movement: " + movement);
             // Move enemy towards player
-            myRigidBody.MovePosition(player.transform.position * moveSpeed * Time.fixedDeltaTime);
+            myRigidBody.MovePosition(movement);
         }
     }
 
