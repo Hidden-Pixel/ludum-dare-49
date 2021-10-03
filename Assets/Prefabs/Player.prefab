@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 38860064}
   - component: {fileID: 38860065}
   - component: {fileID: 238261164}
-  m_Layer: 10
+  - component: {fileID: 3531729807007335451}
+  m_Layer: 7
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,7 +99,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.015162624, y: -0.026125371}
+  m_Offset: {x: -0.014388872, y: -0.020322226}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -109,7 +110,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.06585999, y: 0.092666596}
+  m_Size: {x: 0.050384928, y: 0.04082513}
   m_EdgeRadius: 0
 --- !u!114 &38860065
 MonoBehaviour:
@@ -123,6 +124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4881eed0354592c40909201ab26cf765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 8818830570249668034, guid: eeddd85f0103e5942a5b80652a021dfa,
+    type: 3}
   collider_2d: {fileID: 0}
   move_delta: {x: 0, y: 0, z: 0}
 --- !u!95 &238261164
@@ -144,3 +147,28 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3531729807007335451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9109621549631469982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3e6f777a13c2014fadc071c69cc3322, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealth: 100
+  playerHealthMax: 100
+  firstHeartSlot: {fileID: 0}
+  secondHeartSlot: {fileID: 0}
+  thirdHeartSlot: {fileID: 0}
+  fourthHeartSlot: {fileID: 0}
+  fifthHeartSlot: {fileID: 0}
+  heartImageEmpty: {fileID: -8447198333857534367, guid: 190b7fba347868949b7d47ec02974dbd,
+    type: 3}
+  heartImageHalf: {fileID: 5763611896518549006, guid: 190b7fba347868949b7d47ec02974dbd,
+    type: 3}
+  heartImageFull: {fileID: 3887395883094434694, guid: 190b7fba347868949b7d47ec02974dbd,
+    type: 3}

@@ -71,6 +71,8 @@ public class Player : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
+            myAnimator.SetTrigger("AttackWithBow");
+
             GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity) as GameObject;
 
             var velocity = projectile.GetComponent<Projectile>().GetVelocity();
