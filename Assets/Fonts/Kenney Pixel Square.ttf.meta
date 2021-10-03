@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: aa133dabef45aaa4791a01dca35755f3
+guid: 3fd85fd0b452549438282d39417d1738
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - VT323
+  - Kenney Pixel Square
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0

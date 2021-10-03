@@ -5,6 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     // configuration
+    [SerializeField] int health = 500;
     [SerializeField] Transform target;
     [SerializeField] float chaseRange = 0.5f;
     [SerializeField] float attackDistance = 0.1f;
@@ -13,6 +14,7 @@ public class Enemy : MonoBehaviour
     // initialized variables
     Rigidbody2D myRigidBody;
     Animator myAnimator;
+    Trigger2DProxy hitCollider;
 
     bool isProvoked = false;
     float distanceToTarget = Mathf.Infinity;
@@ -22,10 +24,31 @@ public class Enemy : MonoBehaviour
     {
         myAnimator = GetComponent<Animator>();
         myRigidBody = GetComponent<Rigidbody2D>();
+
+        // Subscribe to collision events. (Probably not the best way, but it works...)
+        // https://answers.unity.com/questions/188775/having-more-than-one-collider-in-a-gameobject.html
+        hitCollider = transform.Find("HitCollider").GetComponent<Trigger2DProxy>();
+        hitCollider.OnCollisionTrigger2D_Action += HitCollider_OnTriggerEnter2D;
+    }
+
+    // Handle collisions related to projectiles.
+    private void HitCollider_OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Projectile")
+        {
+            Projectile projectile = collision.gameObject.GetComponent<Projectile>();
+            projectile.Hit();
+
+            health -= projectile.GetDamage();
+            if (health <= 0)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         Vector2 targetPos = target.position;
         distanceToTarget = Vector2.Distance(targetPos, transform.position);
