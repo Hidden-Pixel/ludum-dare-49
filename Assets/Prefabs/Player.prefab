@@ -192,9 +192,12 @@ MonoBehaviour:
   thirdHeartSlot: {fileID: 0}
   fourthHeartSlot: {fileID: 0}
   fifthHeartSlot: {fileID: 0}
-  heartImageEmpty: {fileID: 0}
-  heartImageHalf: {fileID: 0}
-  heartImageFull: {fileID: 0}
+  heartImageEmpty: {fileID: -8447198333857534367, guid: 190b7fba347868949b7d47ec02974dbd,
+    type: 3}
+  heartImageHalf: {fileID: 5763611896518549006, guid: 190b7fba347868949b7d47ec02974dbd,
+    type: 3}
+  heartImageFull: {fileID: 3887395883094434694, guid: 190b7fba347868949b7d47ec02974dbd,
+    type: 3}
 --- !u!114 &1069120884399680586
 MonoBehaviour:
   m_ObjectHideFlags: 0
