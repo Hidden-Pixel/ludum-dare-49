@@ -16163,6 +16163,10 @@ PrefabInstance:
       objectReference: {fileID: -8447198333857534367, guid: 190b7fba347868949b7d47ec02974dbd,
         type: 3}
     - target: {fileID: 238261160, guid: 177b30e223881834388ef005cd4a245b, type: 3}
+      propertyPath: playerHealthMax
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 238261160, guid: 177b30e223881834388ef005cd4a245b, type: 3}
       propertyPath: secondHeartSlot
       value: 
       objectReference: {fileID: 452705140}

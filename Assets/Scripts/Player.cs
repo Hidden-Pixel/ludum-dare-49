@@ -30,10 +30,19 @@ public class Player : MonoBehaviour
     void FixedUpdate()
     {
         Move();
+        if (myAnimator.GetBool("Running") == true && move_delta.x == 0 && move_delta.y == 0)
+        {
+            myAnimator.SetBool("Running", false);
+        }
+        else
+        {
+            myAnimator.SetBool("Running", true);
+        }
     }
 
     private void Move()
     {
+        myAnimator.SetBool("Running", true);
         rig_body.MovePosition(transform.position + (move_delta * speed * Time.deltaTime));
         if (move_delta.x > 0 && !facing_right)
         {
@@ -55,7 +64,7 @@ public class Player : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            myAnimator.SetTrigger("AttackWithBow");
+            myAnimator.Play("AttackWithBow");
         }
     }
 }
