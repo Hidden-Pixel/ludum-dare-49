@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     // initialized variables
     Rigidbody2D myRigidBody;
     Animator myAnimator;
-    Trigger2DProxy hitCollider;
+    EnemyHealthDisplay healthDisplay;
 
     bool isProvoked = false;
     bool hit_wall = false;
@@ -35,12 +35,12 @@ public class Enemy : MonoBehaviour
         }
         myAnimator = GetComponent<Animator>();
         myRigidBody = GetComponent<Rigidbody2D>();
-    }
 
-    // Handle collisions related to projectiles.
-    private void HitCollider_OnTriggerEnter2D(Collider2D collision)
-    {
 
+        // Establish the enemy health bar.
+        GameObject hd = transform.Find("EnemyHealthBar").gameObject;
+        healthDisplay = hd.GetComponent<EnemyHealthDisplay>();
+        healthDisplay.SetStartingHealth(health);
     }
 
     // Update is called once per frame
@@ -138,11 +138,17 @@ public class Enemy : MonoBehaviour
             Projectile projectile = collision.gameObject.GetComponent<Projectile>();
             projectile.Hit();
 
-            health -= projectile.GetDamage();
-            if (health <= 0)
-            {
-                Destroy(gameObject);
-            }
+            ReceiveDamage(projectile.GetDamage());
+        }
+    }
+
+    private void ReceiveDamage(int damage)
+    {
+        health -= damage;
+        healthDisplay.UpdateHealth(health);
+        if (health <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 }
