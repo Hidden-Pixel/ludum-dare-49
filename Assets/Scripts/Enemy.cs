@@ -17,34 +17,30 @@ public class Enemy : MonoBehaviour
     Trigger2DProxy hitCollider;
 
     bool isProvoked = false;
+    bool hit_wall = false;
     float distanceToTarget = Mathf.Infinity;
 
     // Start is called before the first frame update
     void Start()
     {
+        GameObject player = GameObject.Find("Player");
+        if (player == null)
+        {
+            Debug.Log("could not find player game object");
+        }
+        else
+        {
+            Debug.Log("found player game object: " + player);
+            target = player.transform;
+        }
         myAnimator = GetComponent<Animator>();
         myRigidBody = GetComponent<Rigidbody2D>();
-
-        // Subscribe to collision events. (Probably not the best way, but it works...)
-        // https://answers.unity.com/questions/188775/having-more-than-one-collider-in-a-gameobject.html
-        hitCollider = transform.Find("HitCollider").GetComponent<Trigger2DProxy>();
-        hitCollider.OnCollisionTrigger2D_Action += HitCollider_OnTriggerEnter2D;
     }
 
     // Handle collisions related to projectiles.
     private void HitCollider_OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Projectile")
-        {
-            Projectile projectile = collision.gameObject.GetComponent<Projectile>();
-            projectile.Hit();
 
-            health -= projectile.GetDamage();
-            if (health <= 0)
-            {
-                Destroy(gameObject);
-            }
-        }
     }
 
     // Update is called once per frame
@@ -55,7 +51,7 @@ public class Enemy : MonoBehaviour
 
         if (isProvoked)
         {
-            EngageTarget(targetPos);
+            EngageTarget();
         }
         else if (distanceToTarget <= chaseRange)
         {
@@ -75,20 +71,26 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    private void ChaseTarget(Vector2 targetPos)
+    private void ChaseTarget()
     {
-        // Move enemy towards player
-        myRigidBody.MovePosition(targetPos * moveSpeed * Time.fixedDeltaTime);
+        if (hit_wall == false)
+        {
+            if (isProvoked)
+            {
+                Vector3 dir = (target.position - transform.position).normalized;
+                myRigidBody.MovePosition(transform.position + dir * moveSpeed * Time.deltaTime);
+            }
+        }
     }
 
-    private void EngageTarget(Vector2 targetPos)
+    private void EngageTarget()
     {
         if (distanceToTarget > attackDistance)
         {
             // Start run animation
             myAnimator.SetBool("Running", true);
 
-            ChaseTarget(targetPos);
+            ChaseTarget();
         }
 
         if (distanceToTarget <= attackDistance)
@@ -99,9 +101,10 @@ public class Enemy : MonoBehaviour
 
     private void AttackTarget()
     {
-        Debug.Log("ATTACKING TARGET");
+        // Debug.Log("ATTACKING TARGET");
     }
 
+    // Draws the lines in Unity editor so we can see detection and attack radius in scene
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
@@ -109,32 +112,37 @@ public class Enemy : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackDistance);
     }
 
-    /*    private void OnTriggerEnter2D(Collider2D collision)
+    private void CheckBlocking(Collision2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Blocking"))
         {
-            if (collision.gameObject.tag == "Player")
+            Debug.Log("hit the wall");
+            hit_wall = true;
+        }
+        else
+        {
+            Debug.Log("not hitting the wall - type: " + collision.gameObject.name);
+            hit_wall = false;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        CheckBlocking(collision);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Projectile")
+        {
+            Projectile projectile = collision.gameObject.GetComponent<Projectile>();
+            projectile.Hit();
+
+            health -= projectile.GetDamage();
+            if (health <= 0)
             {
-                // player is in detection radius
-                lastDetectedPlayerPos = collision.transform;
-
-
+                Destroy(gameObject);
             }
         }
-
-        private void OnTriggerExit2D(Collider2D collision)
-        {
-            // if the player left detection radius and the enemy was chasing the player, stop the enemy
-            if (collision.gameObject.tag == "Player")
-            {
-                lastDetectedPlayerPos = null;
-            }
-        }
-
-        private void OnTriggerStay2D(Collider2D collision)
-        {
-            // if player remains in radius, move towards player
-            if (collision.gameObject.tag == "Player")
-            {
-                lastDetectedPlayerPos = collision.transform;
-            }
-        }*/
+    }
 }

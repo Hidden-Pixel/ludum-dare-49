@@ -87,6 +87,7 @@ GameObject:
   - component: {fileID: 861237765}
   - component: {fileID: 861237764}
   - component: {fileID: 861237763}
+  - component: {fileID: 1863029198}
   m_Layer: 5
   m_Name: EnemyHealthBar
   m_TagString: Untagged
@@ -176,6 +177,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1863029198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 861237761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98bd1a5e60e95444d8a593a18a6cfd97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1305695250
 GameObject:
   m_ObjectHideFlags: 0
@@ -279,8 +292,7 @@ GameObject:
   - component: {fileID: 339264075290451532}
   - component: {fileID: 339264075290451531}
   - component: {fileID: 339264075290451534}
-  - component: {fileID: 339264075290451535}
-  - component: {fileID: 339264075290451520}
+  - component: {fileID: 912111255}
   m_Layer: 0
   m_Name: Enemy_short_radius
   m_TagString: Untagged
@@ -395,21 +407,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &339264075290451535
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 339264075290451529}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7e220a3710fb994489642861141bf0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 500
-  moveSpeed: 5
-  player: {fileID: 0}
 --- !u!114 &912111255
 MonoBehaviour:
   m_ObjectHideFlags: 0
